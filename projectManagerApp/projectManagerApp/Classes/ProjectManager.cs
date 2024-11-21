@@ -25,6 +25,13 @@ namespace ProjectManagerApp
             ProjectDictionary[project].Add(task);
         }
 
+        public void DeleteProject(Project project)
+        {
+            if (!ProjectDictionary.Remove(project))
+                throw new KeyNotFoundException("Project not found.");
+        }
+
+
 
 
     }

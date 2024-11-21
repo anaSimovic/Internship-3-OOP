@@ -10,6 +10,7 @@ namespace ProjectManagerApp
         static void Main(string[] args)
         {
             SeedData();
+            MainMenu();
 
 
         }
@@ -48,6 +49,71 @@ namespace ProjectManagerApp
 
             projectManager.AddTask(project1, task1);
         }
+        static void MainMenu()
+        {
+            while (true)
+            {
+                Console.Clear();
+                Console.WriteLine("=== Main Menu ===");
+                Console.WriteLine("1. View All Projects");
+                Console.WriteLine("2. Add New Project");
+                Console.WriteLine("3. Delete Project");
+                Console.WriteLine("4. View Tasks Due in 7 Days");
+                Console.WriteLine("5. Filter Projects by Status");
+                Console.WriteLine("6. Manage Project");
+                Console.WriteLine("0. Exit");
+
+                string choice = Console.ReadLine();
+
+                switch (choice)
+                {
+                    case "1": ViewAllProjects(); break;
+                    case "2": AddNewProject(); break;
+                    case "3": DeleteProject(); break;
+                    case "4": ViewTasksDueIn7Days(); break;
+                    case "5": FilterProjectsByStatus(); break;
+                    case "6": ManageProject(); break;
+                    case "0": return;
+                    default: Console.WriteLine("Invalid option. Try again!"); break;
+                }
+            }
+        }
+        static void ViewAllProjects()
+        {
+            Console.Clear();
+            
+        }
+
+        static void AddNewProject()
+        {
+            Console.Clear();
+            
+        }
+
+        static void DeleteProject()
+        {
+            Console.Clear();
+           
+        }
+
+        static void ViewTasksDueIn7Days()
+        {
+            
+        }
+
+        static void FilterProjectsByStatus()
+        {
+            Console.Clear();
+           
+        }
+
+        static void ManageProject()
+        {
+            
+        }
+
+       
+
 
 
 
