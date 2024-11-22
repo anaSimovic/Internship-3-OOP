@@ -101,7 +101,41 @@ namespace ProjectManagerApp
         static void AddNewProject()
         {
             Console.Clear();
-            
+            string name = Utility.GetValidInput("Enter the project name:", input =>
+            {
+                bool isValid = !string.IsNullOrWhiteSpace(input) &&
+                               !projectManager.ProjectDictionary.Keys.Any(p => p.Name.Equals(input, StringComparison.OrdinalIgnoreCase));
+                return (isValid, input);
+            });
+
+            string description = Utility.GetValidInput("Enter the project description:", input =>
+                (!string.IsNullOrWhiteSpace(input), input));
+
+            DateTime startDate = Utility.GetValidInput("Enter start date (yyyy-MM-dd):", input =>
+            {
+                return DateTime.TryParse(input, out DateTime date) ? (true, date) : (false, default);
+            });
+
+            DateTime endDate = Utility.GetValidInput("Enter end date (yyyy-MM-dd):", input =>
+            {
+                bool isValid = DateTime.TryParse(input, out DateTime date) && date >= startDate;
+                return (isValid, date);
+            });
+
+            var newProject = new Project
+            {
+                Name = name,
+                Description = description,
+                StartDate = startDate,
+                EndDate = endDate,
+                Status = ProjectStatus.Active
+            };
+
+            projectManager.AddProject(newProject);
+            Console.WriteLine("Project added successfully! Press any key to return to the main menu.");
+            Console.ReadKey();
+
+
         }
 
         static void DeleteProject()
