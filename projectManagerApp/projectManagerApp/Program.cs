@@ -11,8 +11,6 @@ namespace ProjectManagerApp
         {
             SeedData();
             MainMenu();
-
-
         }
         static void SeedData()
         {
@@ -134,8 +132,6 @@ namespace ProjectManagerApp
             projectManager.AddProject(newProject);
             Console.WriteLine("Project added successfully! Press any key to return to the main menu.");
             Console.ReadKey();
-
-
         }
 
         static void DeleteProject()
@@ -151,7 +147,6 @@ namespace ProjectManagerApp
                 Console.ReadKey();
                 return;
             }
-
             Console.WriteLine($"Are you sure you want to delete the project '{project.Name}'? (yes/no)");
             if (Console.ReadLine()?.ToLower() == "yes")
             {
@@ -162,10 +157,7 @@ namespace ProjectManagerApp
             {
                 Console.WriteLine("Deletion canceled. Press any key to return.");
             }
-
             Console.ReadKey();
-
-
         }
 
         static void ViewTasksDueIn7Days()
@@ -185,11 +177,8 @@ namespace ProjectManagerApp
                     Console.WriteLine($"- {task.Name} | Deadline: {task.Deadline.ToShortDateString()} | Priority: {task.Priority}");
                 }
             }
-
             Console.WriteLine("Press any key to return.");
             Console.ReadKey();
-
-
         }
 
         static void FilterProjectsByStatus()
@@ -222,11 +211,8 @@ namespace ProjectManagerApp
             {
                 Console.WriteLine("Invalid choice.");
             }
-
             Console.WriteLine("Press any key to return.");
             Console.ReadKey();
-
-
         }
 
         static void ManageProject()
@@ -271,8 +257,6 @@ namespace ProjectManagerApp
                     default: Console.WriteLine("Invalid option. Try again!"); break;
                 }
             }
-
-
         }
 
         static void ViewAllTasks(Project project)
@@ -292,8 +276,6 @@ namespace ProjectManagerApp
             }
             Console.WriteLine("Press any key to return.");
             Console.ReadKey();
-
-
         }
 
         static void ViewProjectDetails(Project project)
@@ -306,8 +288,6 @@ namespace ProjectManagerApp
             Console.WriteLine($"Status: {project.Status}");
             Console.WriteLine("Press any key to return.");
             Console.ReadKey();
-
-
         }
 
         static void EditProjectStatus(Project project)
@@ -336,8 +316,6 @@ namespace ProjectManagerApp
             }
             Console.WriteLine("Press any key to return.");
             Console.ReadKey();
-
-
         }
 
         static void AddTask(Project project)
@@ -389,8 +367,6 @@ namespace ProjectManagerApp
             projectManager.AddTask(project, newTask);
             Console.WriteLine("Task added successfully! Press any key to return.");
             Console.ReadKey();
-
-
         }
 
         static void DeleteTask(Project project)
@@ -418,25 +394,44 @@ namespace ProjectManagerApp
                 Console.WriteLine("Deletion canceled. Press any key to return.");
             }
             Console.ReadKey();
-
-
         }
 
         static void ViewTotalExpectedTime(Project project)
         {
-           
+            Console.Clear();
+            var totalTime = projectManager.ProjectDictionary[project]
+                .Where(t => t.Status == TaskStatus.Active)
+                .Sum(t => t.ExpectedDuration);
+
+            Console.WriteLine($"Total expected time for all active tasks in project '{project.Name}': {totalTime} minutes.");
+            Console.WriteLine("Press any key to return.");
+            Console.ReadKey();
         }
+
         static void SortTasksByDuration(Project project)
         {
             Console.Clear();
-           
+            Console.WriteLine($"Tasks in Project: {project.Name} (Sorted by Duration)");
+
+            var sortedTasks = projectManager.ProjectDictionary[project]
+                .OrderBy(t => t.ExpectedDuration)
+                .ToList();
+
+            if (!sortedTasks.Any())
+            {
+                Console.WriteLine("No tasks in this project.");
+            }
+            else
+            {
+                foreach (var task in sortedTasks)
+                {
+                    Console.WriteLine($"- {task.Name} | Expected Duration: {task.ExpectedDuration} mins | Deadline: {task.Deadline.ToShortDateString()} | Priority: {task.Priority}");
+                }
+            }
+
+            Console.WriteLine("Press any key to return.");
+            Console.ReadKey();
+
         }
-
-
-
-
-
-
-
     }
 }
