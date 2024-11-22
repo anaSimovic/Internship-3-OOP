@@ -299,7 +299,15 @@ namespace ProjectManagerApp
         static void ViewProjectDetails(Project project)
         {
             Console.Clear();
-    
+            Console.WriteLine($"Project Details: {project.Name}");
+            Console.WriteLine($"Description: {project.Description}");
+            Console.WriteLine($"Start Date: {project.StartDate.ToShortDateString()}");
+            Console.WriteLine($"End Date: {project.EndDate.ToShortDateString()}");
+            Console.WriteLine($"Status: {project.Status}");
+            Console.WriteLine("Press any key to return.");
+            Console.ReadKey();
+
+
         }
 
         static void EditProjectStatus(Project project)
