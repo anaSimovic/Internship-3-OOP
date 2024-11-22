@@ -395,7 +395,31 @@ namespace ProjectManagerApp
 
         static void DeleteTask(Project project)
         {
-           
+            Console.Clear();
+            Console.WriteLine("Enter the name of the task to delete:");
+            string taskName = Console.ReadLine();
+
+            var task = projectManager.ProjectDictionary[project].FirstOrDefault(t => t.Name.Equals(taskName, StringComparison.OrdinalIgnoreCase));
+            if (task == null)
+            {
+                Console.WriteLine("Task not found. Press any key to return.");
+                Console.ReadKey();
+                return;
+            }
+
+            Console.WriteLine($"Are you sure you want to delete the task '{task.Name}'? (yes/no)");
+            if (Console.ReadLine()?.ToLower() == "yes")
+            {
+                projectManager.DeleteTask(project, task);
+                Console.WriteLine("Task deleted successfully. Press any key to return.");
+            }
+            else
+            {
+                Console.WriteLine("Deletion canceled. Press any key to return.");
+            }
+            Console.ReadKey();
+
+
         }
 
         static void ViewTotalExpectedTime(Project project)

@@ -43,6 +43,13 @@ namespace ProjectManagerApp
             return ProjectDictionary.Keys.Where(p => p.Status == status).ToList();
         }
 
+        public void DeleteTask(Project project, Task task)
+        {
+            if (!ProjectDictionary.ContainsKey(project) || !ProjectDictionary[project].Remove(task))
+                throw new KeyNotFoundException("Task not found in the specified project.");
+        }
+
+
 
 
 
