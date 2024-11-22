@@ -342,7 +342,55 @@ namespace ProjectManagerApp
 
         static void AddTask(Project project)
         {
-            
+            if (project.Status == ProjectStatus.Completed)
+            {
+                Console.WriteLine("Cannot add tasks to a completed project. Press any key to return.");
+                Console.ReadKey();
+                return;
+            }
+
+            Console.Clear();
+            string name = Utility.GetValidInput("Enter the task name:", input =>
+            {
+                bool isValid = !string.IsNullOrWhiteSpace(input) &&
+                               !projectManager.ProjectDictionary[project].Any(t => t.Name.Equals(input, StringComparison.OrdinalIgnoreCase));
+                return (isValid, input);
+            });
+
+            string description = Utility.GetValidInput("Enter the task description:", input =>
+                (!string.IsNullOrWhiteSpace(input), input));
+
+            DateTime deadline = Utility.GetValidInput("Enter deadline (yyyy-MM-dd):", input =>
+            {
+                return DateTime.TryParse(input, out DateTime date) ? (true, date) : (false, default);
+            });
+
+            int expectedDuration = Utility.GetValidInput("Enter expected duration in minutes:", input =>
+            {
+                return int.TryParse(input, out int duration) && duration > 0 ? (true, duration) : (false, default);
+            });
+
+            TaskPriority priority = Utility.GetValidInput("Select priority (1. High, 2. Medium, 3. Low):", input =>
+            {
+                bool isValid = int.TryParse(input, out int choice) && Enum.IsDefined(typeof(TaskPriority), choice - 1);
+                return isValid ? (true, (TaskPriority)(choice - 1)) : (false, default);
+            });
+
+            var newTask = new Task
+            {
+                Name = name,
+                Description = description,
+                Deadline = deadline,
+                Status = TaskStatus.Active,
+                ExpectedDuration = expectedDuration,
+                Priority = priority
+            };
+
+            projectManager.AddTask(project, newTask);
+            Console.WriteLine("Task added successfully! Press any key to return.");
+            Console.ReadKey();
+
+
         }
 
         static void DeleteTask(Project project)
