@@ -81,7 +81,21 @@ namespace ProjectManagerApp
         static void ViewAllProjects()
         {
             Console.Clear();
-            
+            foreach (var project in projectManager.ProjectDictionary.Keys)
+            {
+                Console.WriteLine($"Project: {project.Name} | Status: {project.Status}");
+                Console.WriteLine($"Description: {project.Description}");
+                Console.WriteLine($"Start Date: {project.StartDate.ToShortDateString()} | End Date: {project.EndDate.ToShortDateString()}");
+                Console.WriteLine("Tasks:");
+                foreach (var task in projectManager.ProjectDictionary[project])
+                {
+                    Console.WriteLine($"  - {task.Name} | Status: {task.Status} | Priority: {task.Priority}");
+                }
+                Console.WriteLine();
+            }
+            Console.WriteLine("Press any key to return to the main menu...");
+            Console.ReadKey();
+
         }
 
         static void AddNewProject()
