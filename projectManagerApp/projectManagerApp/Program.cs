@@ -170,7 +170,26 @@ namespace ProjectManagerApp
 
         static void ViewTasksDueIn7Days()
         {
-            
+            Console.Clear();
+            var upcomingTasks = projectManager.GetTasksDueIn7Days();
+
+            if (!upcomingTasks.Any())
+            {
+                Console.WriteLine("No tasks due in the next 7 days.");
+            }
+            else
+            {
+                Console.WriteLine("Tasks due in the next 7 days:");
+                foreach (var task in upcomingTasks)
+                {
+                    Console.WriteLine($"- {task.Name} | Deadline: {task.Deadline.ToShortDateString()} | Priority: {task.Priority}");
+                }
+            }
+
+            Console.WriteLine("Press any key to return.");
+            Console.ReadKey();
+
+
         }
 
         static void FilterProjectsByStatus()

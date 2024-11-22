@@ -31,6 +31,13 @@ namespace ProjectManagerApp
                 throw new KeyNotFoundException("Project not found.");
         }
 
+        public List<Task> GetTasksDueIn7Days()
+        {
+            return ProjectDictionary.Values.SelectMany(tasks => tasks)
+                .Where(task => task.Deadline <= DateTime.Now.AddDays(7) && task.Deadline >= DateTime.Now)
+                .ToList();
+        }
+
 
 
 
