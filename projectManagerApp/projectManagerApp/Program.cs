@@ -231,10 +231,88 @@ namespace ProjectManagerApp
 
         static void ManageProject()
         {
+            Console.Clear();
+            Console.WriteLine("Enter the name of the project to manage:");
+            string projectName = Console.ReadLine();
+
+            var project = projectManager.ProjectDictionary.Keys.FirstOrDefault(p => p.Name.Equals(projectName, StringComparison.OrdinalIgnoreCase));
+            if (project == null)
+            {
+                Console.WriteLine("Project not found. Press any key to return.");
+                Console.ReadKey();
+                return;
+            }
+
+            while (true)
+            {
+                Console.Clear();
+                Console.WriteLine($"Managing Project: {project.Name}");
+                Console.WriteLine("1. View All Tasks");
+                Console.WriteLine("2. View Project Details");
+                Console.WriteLine("3. Edit Project Status");
+                Console.WriteLine("4. Add Task");
+                Console.WriteLine("5. Delete Task");
+                Console.WriteLine("6. View Total Expected Time for Active Tasks");
+                Console.WriteLine("7. View Tasks Sorted by Duration");
+                Console.WriteLine("0. Return to Main Menu");
+
+                string choice = Console.ReadLine();
+
+                switch (choice)
+                {
+                    case "1": ViewAllTasks(project); break;
+                    case "2": ViewProjectDetails(project); break;
+                    case "3": EditProjectStatus(project); break;
+                    case "4": AddTask(project); break;
+                    case "5": DeleteTask(project); break;
+                    case "6": ViewTotalExpectedTime(project); break;
+                    case "7": SortTasksByDuration(project); break;
+                    case "0": return;
+                    default: Console.WriteLine("Invalid option. Try again!"); break;
+                }
+            }
+
+
+        }
+
+        static void ViewAllTasks(Project project)
+        {
+            Console.Clear();
+   
+        }
+
+        static void ViewProjectDetails(Project project)
+        {
+            Console.Clear();
+    
+        }
+
+        static void EditProjectStatus(Project project)
+        {
+         
+        }
+
+        static void AddTask(Project project)
+        {
             
         }
 
-       
+        static void DeleteTask(Project project)
+        {
+           
+        }
+
+        static void ViewTotalExpectedTime(Project project)
+        {
+           
+        }
+        static void SortTasksByDuration(Project project)
+        {
+            Console.Clear();
+           
+        }
+
+
 
 
 
