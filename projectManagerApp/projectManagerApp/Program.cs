@@ -195,7 +195,38 @@ namespace ProjectManagerApp
         static void FilterProjectsByStatus()
         {
             Console.Clear();
-           
+            Console.WriteLine("Select status to filter by:");
+            Console.WriteLine("1. Active");
+            Console.WriteLine("2. Pending");
+            Console.WriteLine("3. Completed");
+
+            if (int.TryParse(Console.ReadLine(), out int statusChoice) && Enum.IsDefined(typeof(ProjectStatus), statusChoice - 1))
+            {
+                var status = (ProjectStatus)(statusChoice - 1);
+                var filteredProjects = projectManager.FilterProjectsByStatus(status);
+
+                if (!filteredProjects.Any())
+                {
+                    Console.WriteLine($"No projects with status: {status}");
+                }
+                else
+                {
+                    Console.WriteLine($"Projects with status: {status}");
+                    foreach (var project in filteredProjects)
+                    {
+                        Console.WriteLine($"- {project.Name}");
+                    }
+                }
+            }
+            else
+            {
+                Console.WriteLine("Invalid choice.");
+            }
+
+            Console.WriteLine("Press any key to return.");
+            Console.ReadKey();
+
+
         }
 
         static void ManageProject()

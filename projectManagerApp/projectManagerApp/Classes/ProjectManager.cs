@@ -38,6 +38,11 @@ namespace ProjectManagerApp
                 .ToList();
         }
 
+        public List<Project> FilterProjectsByStatus(ProjectStatus status)
+        {
+            return ProjectDictionary.Keys.Where(p => p.Status == status).ToList();
+        }
+
 
 
 
