@@ -278,7 +278,22 @@ namespace ProjectManagerApp
         static void ViewAllTasks(Project project)
         {
             Console.Clear();
-   
+            if (!projectManager.ProjectDictionary[project].Any())
+            {
+                Console.WriteLine("No tasks in this project.");
+            }
+            else
+            {
+                Console.WriteLine($"Tasks in Project: {project.Name}");
+                foreach (var task in projectManager.ProjectDictionary[project])
+                {
+                    Console.WriteLine($"- {task.Name} | Status: {task.Status} | Deadline: {task.Deadline.ToShortDateString()} | Priority: {task.Priority}");
+                }
+            }
+            Console.WriteLine("Press any key to return.");
+            Console.ReadKey();
+
+
         }
 
         static void ViewProjectDetails(Project project)
