@@ -312,7 +312,32 @@ namespace ProjectManagerApp
 
         static void EditProjectStatus(Project project)
         {
-         
+            if (project.Status == ProjectStatus.Completed)
+            {
+                Console.WriteLine("Cannot edit status of a completed project. Press any key to return.");
+                Console.ReadKey();
+                return;
+            }
+
+            Console.Clear();
+            Console.WriteLine("Select new status:");
+            Console.WriteLine("1. Active");
+            Console.WriteLine("2. Pending");
+            Console.WriteLine("3. Completed");
+
+            if (int.TryParse(Console.ReadLine(), out int statusChoice) && Enum.IsDefined(typeof(ProjectStatus), statusChoice - 1))
+            {
+                project.Status = (ProjectStatus)(statusChoice - 1);
+                Console.WriteLine("Project status updated successfully.");
+            }
+            else
+            {
+                Console.WriteLine("Invalid choice.");
+            }
+            Console.WriteLine("Press any key to return.");
+            Console.ReadKey();
+
+
         }
 
         static void AddTask(Project project)
