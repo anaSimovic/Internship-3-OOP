@@ -141,7 +141,31 @@ namespace ProjectManagerApp
         static void DeleteProject()
         {
             Console.Clear();
-           
+            Console.WriteLine("Enter the name of the project to delete:");
+            string name = Console.ReadLine();
+
+            var project = projectManager.ProjectDictionary.Keys.FirstOrDefault(p => p.Name.Equals(name, StringComparison.OrdinalIgnoreCase));
+            if (project == null)
+            {
+                Console.WriteLine("Project not found. Press any key to return.");
+                Console.ReadKey();
+                return;
+            }
+
+            Console.WriteLine($"Are you sure you want to delete the project '{project.Name}'? (yes/no)");
+            if (Console.ReadLine()?.ToLower() == "yes")
+            {
+                projectManager.DeleteProject(project);
+                Console.WriteLine("Project deleted successfully. Press any key to return.");
+            }
+            else
+            {
+                Console.WriteLine("Deletion canceled. Press any key to return.");
+            }
+
+            Console.ReadKey();
+
+
         }
 
         static void ViewTasksDueIn7Days()
